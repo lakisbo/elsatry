@@ -1,11 +1,12 @@
 FROM python:3.10
 
-WORKDIR /TamilanBotsZ
+RUN apt update && apt upgrade -y
+RUN apt install git -y
+COPY requirements.txt /requirements.txt
 
-COPY requirements.txt ./
-
+RUN cd /
 RUN pip3 install -U pip && pip3 install -U -r requirements.txt
-
-COPY ..
-
-CMD ["python3", "bot.py"]
+RUN mkdir /Elsa
+WORKDIR /Elsa
+COPY start.sh /start.sh
+CMD ["/bin/bash", "/start.sh"]
